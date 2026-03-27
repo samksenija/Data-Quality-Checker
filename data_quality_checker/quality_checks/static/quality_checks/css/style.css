@@ -1,0 +1,5 @@
+.move-to-the-bottom-of-page {
+    position: fixed; 
+    width: 100%; 
+    bottom: 10px;
+}

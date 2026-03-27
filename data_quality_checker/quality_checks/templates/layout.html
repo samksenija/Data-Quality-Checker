@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}DATA QUALITY CHECKER{% endblock %}</title>
+    <title>{% block title %}Data Quality Checker{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'quality_checks/css/style.css' %}">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">DataQualityChecker</a>
+            <a class="navbar-brand" href="/">Data Quality Checker</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -39,7 +40,7 @@
         {% endblock %}
     </main>
 
-    <footer class="bg-light text-center py-3 mt-5">
+    <footer class="bg-light text-center py-3 mt-5 move-to-the-bottom-of-page">
         <p class="mb-0">© {% now "Y" %} DataQualityChecker</p>
     </footer>
 
