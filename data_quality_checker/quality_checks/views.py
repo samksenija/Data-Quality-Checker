@@ -13,8 +13,12 @@ def file_upload(request):
             df = pd.read_csv(io.StringIO(data))
 
             null_field_data = check_for_null_fields(df)
+            rows_and_columns = null_field_data[0]
+            null_count_per_column = null_field_data[1]
 
-            return render(request, "results.html", {"null_field_data": null_field_data})
+            return render(request, "results.html", 
+                {"rows_and_columns": rows_and_columns, 
+                "null_count_per_column": null_count_per_column})
     except:
         print('redirect & present the error')  #TODO
 
@@ -26,4 +30,4 @@ def check_for_null_fields(df):
     null_counts = df_is_null.sum()
     rows, cols = np.where(df_is_null)
 
-    return [rows, cols, null_counts.to_dict()]
+    return [[rows, cols], null_counts.to_dict()]

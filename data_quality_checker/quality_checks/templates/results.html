@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}Validation Results{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h2 class="mb-4">Data Quality Results</h2>
+
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>Total Rows</h5>
+                    <p class="fs-4">{{ total_rows }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>Null Values</h5>
+                    <p class="fs-4">{{ null_count_per_column }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>Duplicates</h5>
+                    <p class="fs-4">{{ duplicate_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5>Schema Issues</h5>
+                    <p class="fs-4">{{ schema_issues_count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-5">
+        <h4>Rows with Null Values</h4>
+        {% if rows_and_columns %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            {% for row in rows_and_columns.0 %}
+                                <th>{{ row }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for col in rows_and_columns.1 %}
+                            <tr>
+                                <td>{{col}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-success">No null values found</p>
+        {% endif %}
+    </div>
+
+    <div class="mb-5">
+        <h4>Duplicate Rows</h4>
+        {% if duplicate_rows %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead class="table-warning">
+                        <tr>
+                            {% for col in headers %}
+                                <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in duplicate_rows %}
+                            <tr>
+                                {% for cell in row %}
+                                    <td>{{ cell }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-success">No duplicates found</p>
+        {% endif %}
+    </div>
+
+    <div class="mb-5">
+        <h4>Schema Issues</h4>
+        {% if schema_issues %}
+            <ul class="list-group">
+                {% for issue in schema_issues %}
+                    <li class="list-group-item list-group-item-danger">
+                        {{ issue }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-success">No schema issues found</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}
