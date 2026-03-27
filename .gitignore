@@ -1,0 +1,5 @@
+data_quality_checker/data_quality_checker/__pycache__/
+data_quality_checker/db.sqlite3
+data_quality_checker/quality_checks/__pycache__/
+data_quality_checker/quality_checks/migrations/__pycache__/
+data_quality_checker/.env
