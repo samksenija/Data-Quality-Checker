@@ -12,22 +12,30 @@ def file_upload(request):
             data = csv_file.read().decode('utf-8')
             df = pd.read_csv(io.StringIO(data))
 
-            null_field_data = check_for_null_fields(df)
-            rows_and_columns = null_field_data[0]
-            null_count_per_column = null_field_data[1]
+            null_count_per_column = check_for_null_fields_count(df)
 
             return render(request, "results.html", 
-                {"rows_and_columns": rows_and_columns, 
-                "null_count_per_column": null_count_per_column})
+                {"null_count_per_column": null_count_per_column})
     except:
         print('redirect & present the error')  #TODO
 
     return render(request, "file_upload.html", {})
 
-def check_for_null_fields(df):
+def check_for_null_fields_count(df):
     df_is_null = df.isnull()
 
     null_counts = df_is_null.sum()
+
+    return null_counts.to_dict()
+
+def check_for_null_fields_index_column(df):
+    df_is_null = df.isnull()
+    array_of_textual_result = []
+
     rows, cols = np.where(df_is_null)
 
-    return [[rows, cols], null_counts.to_dict()]
+    for r, c in zip(rows, cols):
+        found_at = f"Null found at Row Index: {df.index[r]}, Column: {df.columns[c]}"
+        array_of_textual_result.append(found_at)
+
+    return array_of_textual_result
