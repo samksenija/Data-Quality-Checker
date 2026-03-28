@@ -17,7 +17,7 @@ def file_upload(request):
             return render(request, "results.html", 
                 {"null_count_per_column": null_count_per_column})
     except:
-        print('redirect & present the error')  #TODO
+        return render(request, "error_page.html", {})
 
     return render(request, "file_upload.html", {})
 
