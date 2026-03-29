@@ -4,12 +4,15 @@ import numpy as np
 
 from django.shortcuts import render
 
+df = None
+
 def file_upload(request):
     try:
         if request.method == "POST" and request.FILES.get('csv_file'):
             csv_file = request.FILES['csv_file']
 
             data = csv_file.read().decode('utf-8')
+            global df 
             df = pd.read_csv(io.StringIO(data))
 
             null_count_per_column = check_for_null_fields_count(df)
@@ -23,8 +26,12 @@ def file_upload(request):
 
 
 def null_value_details(request):
- 
-    return render(request, "null_value_details.html", {})
+    try:
+        null_value_details = check_for_null_fields_index_column(df)
+        return render(request, "null_value_details.html", 
+            {"null_value_details": null_value_details})
+    except:
+        return render(request, "error_page.html", {})
 
 def check_for_null_fields_count(df):
     df_is_null = df.isnull()
@@ -40,7 +47,7 @@ def check_for_null_fields_index_column(df):
     rows, cols = np.where(df_is_null)
 
     for r, c in zip(rows, cols):
-        found_at = f"Null found at Row Index: {df.index[r]}, Column: {df.columns[c]}"
+        found_at = f"Null found at row index: {df.index[r]}, column: {df.columns[c]}"
         array_of_textual_result.append(found_at)
 
     return array_of_textual_result
