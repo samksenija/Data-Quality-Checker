@@ -21,6 +21,11 @@ def file_upload(request):
 
     return render(request, "file_upload.html", {})
 
+
+def null_value_details(request):
+ 
+    return render(request, "null_value_details.html", {})
+
 def check_for_null_fields_count(df):
     df_is_null = df.isnull()
 
