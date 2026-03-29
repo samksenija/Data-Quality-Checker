@@ -7,7 +7,7 @@
 
 <div class="container">
     <h2 class="mb-4">Data Quality Results</h2>
-    <div class="fixed-content">
+    <div class="fixed-content push-div-down-25">
         <h5>Count of Null Values per Column</h5>
         <table class="table">
             <thead>
@@ -30,7 +30,7 @@
         View Null Value Details
     </a>
 
-    <div class="push-div-down fixed-content">
+    <div class="push-div-down-65 fixed-content">
         <h5>Duplicate Rows</h5>
         <p><strong>Total duplicates:</strong> {{ duplicate_rows.duplicate_count }}</p>
         <table class="table">
@@ -53,7 +53,11 @@
                 </tr>
             </tbody>
         </table>
-    </div>   
+    </div>  
+    
+    <div class="push-div-down-65 fixed-content">
+        <h5>Schema Validation</h5>
+    </div>
 </div>
 
 {% endblock %}
