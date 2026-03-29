@@ -12,6 +12,7 @@ def file_upload(request):
             csv_file = request.FILES['csv_file']
 
             data = csv_file.read().decode('utf-8')
+
             global df 
             df = pd.read_csv(io.StringIO(data))
 
@@ -32,6 +33,7 @@ def null_value_details(request):
             {"null_value_details": null_value_details})
     except:
         return render(request, "error_page.html", {})
+    
 
 def check_for_null_fields_count(df):
     df_is_null = df.isnull()
