@@ -7,28 +7,28 @@
 
 <div class="container">
     <h2 class="mb-4">Data Quality Results</h2>
-        <div>
-            <h5>Count of Null Values per Column</h5>
-            <table class="table">
-                <thead>
-                    <tr>
-                        {% for key, value in null_count_per_column.items %}
-                            <th scope="col">{{ key }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        {% for key, value in null_count_per_column.items %}
-                            <td style="text-align: center;">{{ value }}</td>
-                        {% endfor %}
-                    </tr>
-                </tbody>
-            </table>
-            <a href="{% url 'null_value_details' %}">
-                View Null Value Details
-            </a>
-        </div>   
+    <div>
+        <h5>Count of Null Values per Column</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    {% for key, value in null_count_per_column.items %}
+                        <th scope="col">{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for key, value in null_count_per_column.items %}
+                        <td style="text-align: center;">{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+        <a href="{% url 'null_value_details' %}">
+            View Null Value Details
+        </a>
+    </div>   
 </div>
 
 {% endblock %}
