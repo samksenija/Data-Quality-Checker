@@ -17,9 +17,11 @@ def file_upload(request):
             df = pd.read_csv(io.StringIO(data))
 
             null_count_per_column = check_for_null_fields_count(df)
+            duplicate_rows = check_for_duplicate_rows(df)
 
             return render(request, "results.html", 
-                {"null_count_per_column": null_count_per_column})
+                {"null_count_per_column": null_count_per_column,
+                "duplicate_rows": duplicate_rows})
     except:
         return render(request, "error_page.html", {})
 
@@ -53,3 +55,14 @@ def check_for_null_fields_index_column(df):
         array_of_textual_result.append(found_at)
 
     return array_of_textual_result
+
+def check_for_duplicate_rows(df):
+    duplicate_rows = df[df.duplicated()]
+    
+    context = {
+        "headers": duplicate_rows.columns.tolist(),
+        "duplicate_rows": duplicate_rows.values.tolist(),
+        "duplicate_count": len(duplicate_rows),
+    }
+
+    return context

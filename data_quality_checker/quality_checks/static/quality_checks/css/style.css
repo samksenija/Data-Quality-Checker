@@ -15,3 +15,8 @@
 .create-space-45 {
     margin-top: 45px;
 }
+
+.fixed-content {
+    overflow-y:hidden;
+    overflow-x:scroll;
+}
