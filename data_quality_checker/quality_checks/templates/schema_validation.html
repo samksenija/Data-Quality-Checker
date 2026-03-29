@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}Schema Validation{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h2 class="mb-4">Would you like to perform schema Validation?</h2>
+    <h5>If you'd like to perform schema validation, please choose columns which you'd like to validate, and desired data type.</h5>
+
+    <div class="row push-div-down-65">
+        <div class="col-3"></div>
+        <div class="col-3">
+            <button type="button" class="btn btn-primary">Perform Schema Validation</button>
+        </div>
+        <div class="col-3">
+            <button type="button" class="btn btn-light">Skip Schema Validation</button>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    </h3>
+</div>
+
+{% endblock %}

@@ -35,6 +35,12 @@ def null_value_details(request):
             {"null_value_details": null_value_details})
     except:
         return render(request, "error_page.html", {})
+
+def schema_validation(request):
+    try:
+        return render(request, "schema_validation.html", {})
+    except:
+        return render(request, "error_page.html", {})
     
 
 def check_for_null_fields_count(df):
