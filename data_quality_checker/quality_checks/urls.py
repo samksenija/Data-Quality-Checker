@@ -6,6 +6,5 @@ urlpatterns = [
     path("", views.file_upload, name="index_file_upload"),
     path("file_upload", views.file_upload, name="file_upload"),
     path("null-value-details", views.null_value_details, name="null_value_details"),
-    path("schema-validation", views.schema_validation, name="schema_validation"),
     path("results", views.results, name="results"),
 ]

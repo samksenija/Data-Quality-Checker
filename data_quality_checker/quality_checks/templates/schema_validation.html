@@ -10,27 +10,21 @@
     <h5>If you'd like to perform schema validation, for columns which you'd like to validate, please, pick desired data type.</h5>
 
         <div class="push-div-down">
-            <form action="{% url 'schema_validation' %}" method="post">
+            <form action="{% url 'results' %}" method="post">
                 {% csrf_token %}
                 <div class="fixed-content">
                     <table class="table">
                         <thead>
                             <tr>
-                                {% for header in columns %}
-                                    <th scope="col">{{ header }}</th>
+                                {% for field in form %}
+                                    <th scope="col">{{ field.label }}</th>
                                 {% endfor %}
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                {% for header in columns %}
-                                    <td>
-                                        <select name="columns" class="form-select">
-                                            {% for key, value in data_types.items %}
-                                                <option value="{{ value }}">{{ key }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </td>
+                                {% for field in form %}
+                                    <td>{{ field }}</td>
                                 {% endfor %}
                             </tr>
                         </tbody>

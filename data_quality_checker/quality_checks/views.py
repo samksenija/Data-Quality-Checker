@@ -1,6 +1,7 @@
 import io
 import pandas as pd
 import numpy as np
+from .forms import ColumnMappingForm
 
 from django.shortcuts import render
 
@@ -36,10 +37,14 @@ def file_upload(request):
 
             global duplicate_rows
             duplicate_rows = check_for_duplicate_rows(df)
+            columns = duplicate_rows["headers"]
+
+            form = ColumnMappingForm(request.POST, columns=columns, data_types=data_types)
 
             return render(request, "schema_validation.html", {
-                "columns": duplicate_rows["headers"],
-                "data_types": data_types
+                "columns": columns,
+                "data_types": data_types,
+                "form": form
             })
     except:
         return render(request, "error_page.html", {})
@@ -65,12 +70,6 @@ def null_value_details(request):
         null_value_details = check_for_null_fields_index_column(df)
         return render(request, "null_value_details.html", 
             {"null_value_details": null_value_details})
-    except:
-        return render(request, "error_page.html", {})
-
-def schema_validation(request):
-    try:
-        return render(request, "schema_validation.html", {})
     except:
         return render(request, "error_page.html", {})
     
