@@ -5,6 +5,7 @@ import numpy as np
 from django.shortcuts import render
 
 df = None
+duplicate_rows = None
 
 global data_types
 data_types = {
@@ -33,22 +34,30 @@ def file_upload(request):
             global df 
             df = pd.read_csv(io.StringIO(data))
 
-            null_count_per_column = check_for_null_fields_count(df)
+            global duplicate_rows
             duplicate_rows = check_for_duplicate_rows(df)
 
             return render(request, "schema_validation.html", {
                 "columns": duplicate_rows["headers"],
                 "data_types": data_types
             })
-
-
-            # return render(request, "results.html", 
-            #     {"null_count_per_column": null_count_per_column,
-            #     "duplicate_rows": duplicate_rows})
     except:
         return render(request, "error_page.html", {})
 
     return render(request, "file_upload.html", {})
+
+
+def results(request):
+    try:
+        show_schema_results = False #TODO 
+        null_count_per_column = check_for_null_fields_count(df)
+
+        return render(request, "results.html", 
+                    {"null_count_per_column": null_count_per_column,
+                    "duplicate_rows": duplicate_rows,
+                    "show_schema_results": show_schema_results})
+    except:
+        return render(request, "error_page.html", {})
 
 
 def null_value_details(request):

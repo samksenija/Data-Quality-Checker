@@ -55,9 +55,11 @@
         </table>
     </div>  
     
-    <div class="push-div-down-65 fixed-content">
-        <h5>Schema Validation</h5>
-    </div>
+    {% if show_schema_results %}
+        <div class="push-div-down-65 fixed-content">
+            <h5>Schema Validation</h5>
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}
