@@ -6,8 +6,34 @@
 {% block body %}
 
 <div class="container">
-    <h2 class="mb-4">Would you like to perform schema Validation?</h2>
-    <h5>If you'd like to perform schema validation, please choose columns which you'd like to validate, and desired data type.</h5>
+    <h2 class="mb-4">Would you like to perform schema validation?</h2>
+    <h5>If you'd like to perform schema validation, for columns which you'd like to validate, please, pick desired data type.</h5>
+
+         <div class="push-div-down fixed-content">
+            <table class="table">
+                <thead>
+                    <tr>
+                        {% for header in columns %}
+                            <th scope="col">{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for header in columns %}
+                            <td>
+                                <select name="columns" class="form-select">
+                                    {% for key, value in data_types.items %}
+                                        <option>{{ key }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+         </div>
+   
 
     <div class="row push-div-down-65">
         <div class="col-3"></div>

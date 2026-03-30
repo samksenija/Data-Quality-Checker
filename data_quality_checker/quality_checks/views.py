@@ -6,6 +6,23 @@ from django.shortcuts import render
 
 df = None
 
+global data_types
+data_types = {
+    "": "",
+    "Integer": int,
+    "Float": float,
+    "Complex": complex,
+    "Boolean": bool,
+    "String": str,
+    "Bytes": bytes,
+    "ByteArray": bytearray,
+    "List": list,
+    "Tuple": tuple,
+    "Set": set,
+    "Dictionary": dict,
+    "Null": type(None)
+}
+
 def file_upload(request):
     try:
         if request.method == "POST" and request.FILES.get('csv_file'):
@@ -19,9 +36,15 @@ def file_upload(request):
             null_count_per_column = check_for_null_fields_count(df)
             duplicate_rows = check_for_duplicate_rows(df)
 
-            return render(request, "results.html", 
-                {"null_count_per_column": null_count_per_column,
-                "duplicate_rows": duplicate_rows})
+            return render(request, "schema_validation.html", {
+                "columns": duplicate_rows["headers"],
+                "data_types": data_types
+            })
+
+
+            # return render(request, "results.html", 
+            #     {"null_count_per_column": null_count_per_column,
+            #     "duplicate_rows": duplicate_rows})
     except:
         return render(request, "error_page.html", {})
 
