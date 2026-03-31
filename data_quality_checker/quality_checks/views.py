@@ -111,5 +111,25 @@ def check_for_duplicate_rows(df):
 
     return context
 
+def check_for_which_columns_schema_needs_to_be_validated(column_mappings):
+    column_mappings = [(column, value) for column, value in column_mappings if value != ""]
+
+    return column_mappings
+
 def schema_check_datatypes(df, column_mappings):
-    pass
+    columns_to_be_validates_for_data_type = check_for_which_columns_schema_needs_to_be_validated(column_mappings)
+    datatype_conversion_results = []
+
+    for column, data_type in columns_to_be_validates_for_data_type:
+        try:
+            df[column].astype(data_type)
+            validation = validation_message_for_schema_check(column, "can", data_type)
+            datatype_conversion_results.append(validation)
+        except ValueError:
+            validation = validation_message_for_schema_check(column, "cannot", data_type)
+            datatype_conversion_results.append(validation)
+
+    return datatype_conversion_results
+
+def validation_message_for_schema_check(column, validation_message, data_type):
+    return f"Column '{column}' contains values that {validation_message} be converted to {data_type}."
