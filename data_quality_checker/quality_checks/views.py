@@ -56,18 +56,21 @@ def results(request):
     try:
         show_schema_results = False
         null_count_per_column = check_for_null_fields_count(df)
-
+        schema_result = []
+        
         if request.method == "POST":
             form = ColumnMappingForm(request.POST, columns=duplicate_rows["headers"], data_types=data_types)
 
             if form.is_valid():
                 show_schema_results = True
-                schema_check_datatypes(df, form.cleaned_data.items())
+                schema_result = schema_check_datatypes(df, form.cleaned_data.items())
 
         return render(request, "results.html", 
-                    {"null_count_per_column": null_count_per_column,
-                    "duplicate_rows": duplicate_rows,
-                    "show_schema_results": show_schema_results})
+                {"null_count_per_column": null_count_per_column,
+                "duplicate_rows": duplicate_rows,
+                "show_schema_results": show_schema_results,
+                "schema_check_datatypes": schema_result})
+                        
     except:
         return render(request, "error_page.html", {})
 
@@ -123,13 +126,17 @@ def schema_check_datatypes(df, column_mappings):
     for column, data_type in columns_to_be_validates_for_data_type:
         try:
             df[column].astype(data_type)
-            validation = validation_message_for_schema_check(column, "can", data_type)
-            datatype_conversion_results.append(validation)
+            validation_result = "Valid"
+
         except ValueError:
-            validation = validation_message_for_schema_check(column, "cannot", data_type)
-            datatype_conversion_results.append(validation)
+            validation_result = "Invalid"
 
+        validation = {
+            "column_name": column,
+            "expected_type": data_type,
+            "validation_result": validation_result
+        }
+        
+        datatype_conversion_results.append(validation)
+  
     return datatype_conversion_results
-
-def validation_message_for_schema_check(column, validation_message, data_type):
-    return f"Column '{column}' contains values that {validation_message} be converted to {data_type}."
