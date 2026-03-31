@@ -4,6 +4,7 @@ import numpy as np
 
 from .forms import ColumnMappingForm
 from django.shortcuts import render
+from fpdf import FPDF
 
 df = None
 duplicate_rows = None
@@ -65,11 +66,12 @@ def results(request):
                 show_schema_results = True
                 schema_result = schema_check_datatypes(df, form.cleaned_data.items())
 
-        return render(request, "results.html", 
-                {"null_count_per_column": null_count_per_column,
+            context = {"null_count_per_column": null_count_per_column,
                 "duplicate_rows": duplicate_rows,
                 "show_schema_results": show_schema_results,
-                "schema_check_datatypes": schema_result})
+                "schema_check_datatypes": schema_result}
+
+        return render(request, "results.html", context)
                         
     except:
         return render(request, "error_page.html", {})
@@ -140,3 +142,6 @@ def schema_check_datatypes(df, column_mappings):
         datatype_conversion_results.append(validation)
   
     return datatype_conversion_results
+
+def generate_pdf(context):
+    pass
