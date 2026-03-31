@@ -1,8 +1,8 @@
 import io
 import pandas as pd
 import numpy as np
-from .forms import ColumnMappingForm
 
+from .forms import ColumnMappingForm
 from django.shortcuts import render
 
 df = None
