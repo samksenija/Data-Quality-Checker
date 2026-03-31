@@ -11,18 +11,18 @@ duplicate_rows = None
 global data_types
 data_types = {
     "": "",
-    "Integer": int,
-    "Float": float,
-    "Complex": complex,
-    "Boolean": bool,
-    "String": str,
-    "Bytes": bytes,
-    "ByteArray": bytearray,
-    "List": list,
-    "Tuple": tuple,
-    "Set": set,
-    "Dictionary": dict,
-    "Null": type(None)
+    "Integer": "int",
+    "Float": "float",
+    "Complex": "complex",
+    "Boolean": "bool",
+    "String": "str",
+    "Bytes": "bytes",
+    "ByteArray": "bytearray",
+    "List": "list",
+    "Tuple": "tuple",
+    "Set": "set",
+    "Dictionary": "dict",
+    "Null": "none"
 }
 
 def file_upload(request):
@@ -54,8 +54,15 @@ def file_upload(request):
 
 def results(request):
     try:
-        show_schema_results = False #TODO 
+        show_schema_results = False
         null_count_per_column = check_for_null_fields_count(df)
+
+        if request.method == "POST":
+            form = ColumnMappingForm(request.POST, columns=duplicate_rows["headers"], data_types=data_types)
+
+            if form.is_valid():
+                show_schema_results = True
+                schema_check_datatypes(df, form.cleaned_data.items())
 
         return render(request, "results.html", 
                     {"null_count_per_column": null_count_per_column,
@@ -103,3 +110,6 @@ def check_for_duplicate_rows(df):
     }
 
     return context
+
+def schema_check_datatypes(df, column_mappings):
+    pass
