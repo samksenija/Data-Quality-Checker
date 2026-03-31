@@ -7,4 +7,4 @@ Upload a CSV file to analyze data quality. The system will identify how many nul
 <br/>
 Commands:
 <br/>
-`pip install weasyprint`
+
