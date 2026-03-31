@@ -4,82 +4,111 @@
 {% block title %}Validation Results{% endblock %}
 
 {% block body %}
+<style>
+    h1, h2, h5 {
+        margin: 0.5em 0;
+        color: #1a1a1a;
+    }
+    h1 { font-size: 18pt; }
+    h2 { font-size: 16pt; }
+    h5 { font-size: 14pt; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1.5em;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+    .section {
+        margin-top: 2em;
+    }
+    .link {
+        color: #1a73e8;
+        text-decoration: none;
+        font-size: 12pt;
+    }
+    .padding-bottom {
+        padding-bottom: 1.5em;
+    }
+</style>
 
-<div class="container">
-    <h2 class="mb-4">Data Quality Results</h2>
-    <div class="fixed-content push-div-down-25">
-        <h5>Count of Null Values per Column</h5>
-        <table class="table">
-            <thead>
-                <tr>
-                    {% for key, value in null_count_per_column.items %}
-                        <th scope="col">{{ key }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    {% for key, value in null_count_per_column.items %}
-                        <td style="text-align: center;">{{ value }}</td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <a href="{% url 'null_value_details' %}">
-        View Null Value Details
-    </a>
-
-    <div class="push-div-down-65 fixed-content">
-        <h5>Duplicate Rows</h5>
-        <p><strong>Total duplicates:</strong> {{ duplicate_rows.duplicate_count }}</p>
-        <table class="table">
-            <thead>
-                <tr>
-                    {% for header in duplicate_rows.headers %}
-                        <th scope="col">{{ header }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    {% for row in duplicate_rows.duplicate_rows %}
-                        <tr>
-                            {% for cell in row %}
-                                <td>{{ cell }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tr>
-            </tbody>
-        </table>
-    </div>  
-    
-    {% if show_schema_results %}
-        <div class="push-div-down-65 fixed-content">
-            <h5>Schema Validation</h5>
-            <div class="push_down_content_65">
-                <table class="table">
-                    <thead>
-                        <tr style="text-align: center;">
-                            <th scope="col">Column Name</th>
-                            <th scope="col">Expected Data Type</th>
-                            <th scope="col">Validation Result</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for result in schema_check_datatypes %}
-                            <tr style="text-align: center;">
-                                <td>{{ result.column_name }}</td>
-                                <td>{{ result.expected_type }}</td>
-                                <td>{{ result.validation_result }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    {% endif %}
+<div class="section">
+    <h1>Data Quality Validation Report</h1>
 </div>
+
+<div class="section fixed-content">
+    <h2>Null Values per Column</h2>
+    <table>
+        <thead>
+            <tr>
+                {% for key, value in null_count_per_column.items %}
+                    <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for key, value in null_count_per_column.items %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <p><a class="link" href="{% url 'null_value_details' %}">View Null Value Details</a></p>
+</div>
+
+<div class="section fixed-content">
+    <h2>Duplicate Rows</h2>
+    <p><strong>Total duplicates:</strong> {{ duplicate_rows.duplicate_count }}</p>
+    <table>
+        <thead>
+            <tr>
+                {% for header in duplicate_rows.headers %}
+                    <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in duplicate_rows.duplicate_rows %}
+                <tr>
+                    {% for cell in row %}
+                        <td>{{ cell }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if show_schema_results %}
+<div class="section padding-bottom">
+    <h2>Schema Validation</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Column Name</th>
+                <th>Expected Data Type</th>
+                <th>Validation Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in schema_check_datatypes %}
+                <tr>
+                    <td>{{ result.column_name }}</td>
+                    <td>{{ result.expected_type }}</td>
+                    <td>{{ result.validation_result }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
 
 {% endblock %}
