@@ -3,6 +3,8 @@ import pandas as pd
 
 from .forms import ColumnMappingForm
 from django.shortcuts import render
+from django.http import HttpResponse
+from datetime import datetime
 from .utils import check_for_null_fields_count, check_for_null_fields_index_column, check_for_duplicate_rows, schema_check_datatypes, generate_pdf 
 
 df = None
@@ -59,6 +61,11 @@ def results(request):
         null_count_per_column = check_for_null_fields_count(df)
         schema_result = []
         global result_of_validation
+
+        result_of_validation = {"null_count_per_column": null_count_per_column,
+            "duplicate_rows": duplicate_rows,
+            "show_schema_results": show_schema_results
+        }
         
         if request.method == "POST":
             form = ColumnMappingForm(request.POST, columns=duplicate_rows["headers"], data_types=data_types)
@@ -86,4 +93,22 @@ def null_value_details(request):
         return render(request, "error_page.html", {})
     
 
+def download_pdf(request):
+    try:
+        filename = 'validation-result-' + datetime.today().strftime("%Y-%m-%d") + '-' + datetime.now().strftime("%H-%M-%S") + '.pdf'
+    
+        buffer = io.BytesIO()
+
+        generate_pdf(filename, result_of_validation)
+
+        pdf = buffer.getvalue()
+        buffer.close()
+
+        pdf = open(filename, 'rb')
+        response = HttpResponse(pdf.read())
+        response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+        return response
+    except:
+        return render(request, "error_page.html", {})
 
