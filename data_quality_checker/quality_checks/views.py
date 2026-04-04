@@ -5,7 +5,7 @@ from .forms import ColumnMappingForm
 from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime
-from .utils import check_for_null_fields_count, check_for_null_fields_index_column, check_for_duplicate_rows, schema_check_datatypes, generate_pdf 
+from .utils import check_for_null_fields_count, check_for_null_fields_index_column, check_for_duplicate_rows, schema_check_datatypes, generate_pdf, results_context 
 
 df = None
 duplicate_rows = None
@@ -30,7 +30,7 @@ data_types = {
 
 def file_upload(request):
     try:
-        if request.method == "POST" and request.FILES.get('csv_file'):
+        if request.method == "POST" and request.FILES.get('csv_file'): #TODO add Excel file support
             csv_file = request.FILES['csv_file']
 
             data = csv_file.read().decode('utf-8')
@@ -61,11 +61,8 @@ def results(request):
         null_count_per_column = check_for_null_fields_count(df)
         schema_result = []
         global result_of_validation
-
-        result_of_validation = {"null_count_per_column": null_count_per_column,
-            "duplicate_rows": duplicate_rows,
-            "show_schema_results": show_schema_results
-        }
+        
+        result_of_validation = results_context(null_count_per_column, duplicate_rows, show_schema_results, schema_result)
         
         if request.method == "POST":
             form = ColumnMappingForm(request.POST, columns=duplicate_rows["headers"], data_types=data_types)
@@ -74,11 +71,8 @@ def results(request):
                 show_schema_results = True
                 schema_result = schema_check_datatypes(df, form.cleaned_data.items())
 
-            result_of_validation = {"null_count_per_column": null_count_per_column,
-                "duplicate_rows": duplicate_rows,
-                "show_schema_results": show_schema_results,
-                "schema_check_datatypes": schema_result}
-
+                result_of_validation = results_context(null_count_per_column, duplicate_rows, show_schema_results, schema_result)
+                
         return render(request, "results.html", result_of_validation)              
     except:
         return render(request, "error_page.html", {})
@@ -111,4 +105,3 @@ def download_pdf(request):
         return response
     except:
         return render(request, "error_page.html", {})
-

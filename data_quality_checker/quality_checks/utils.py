@@ -164,3 +164,9 @@ def generate_pdf(filename, data):
         elements.append(create_table(schema_data, 3))
 
     doc.build(elements)
+    
+def results_context(null_count_per_column, duplicate_rows, show_schema_results, schema_result):
+    return {"null_count_per_column": null_count_per_column,
+            "duplicate_rows": duplicate_rows,
+            "show_schema_results": show_schema_results,
+            "schema_check_datatypes": schema_result}

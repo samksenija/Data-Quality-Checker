@@ -8,7 +8,7 @@ Tools used to build the data quality checker are `Python` & `Django`.
 Upload a CSV file to assess data quality. The system will report the number of null values, specifying the columns and rows where they occur. It will also identify duplicate rows and highlight which entries repeat an original record.
 <br/>
 <br/>
-The main goal is to allow users without database or SQL knowledge to quickly assess the quality of their data. For instance, someone preparing files for ingestion doesn’t need coding experience. This enables professionals who prepare datsets to validate them before they enter the ETL pipeline.
+The main goal is to allow users without database or SQL knowledge to quickly assess the quality of their data. For instance, someone preparing files for ingestion doesn’t need coding experience. This enables professionals who prepare datasets to validate them before they enter the ETL pipeline.
 <br/>
 <br/>
 Furthermore, data engineers often work with files prepared by professionals in other fields, and they’re frequently responsible for validating datasets that may contain issues that aren’t immediately obvious. If the person preparing the data can check for problems such as missing values, duplicate rows, or schema mismatches in advance, it helps reduce bottlenecks and streamlines the overall process.
