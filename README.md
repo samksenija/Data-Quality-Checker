@@ -1,11 +1,11 @@
 # Data Quality Checker
-This is data quality checker that searches for null values, duplicates &amp; performs schema validation if user chooses so.
-<br/>
-<br/>
-Upload a CSV file to assess data quality. The system will report the number of null values, specifying the columns and rows where they occur. It will also identify duplicate rows and highlight which entries repeat an original record.
+This is a data quality checker that identifies null values, detects duplicates, and can perform schema validation if the user chooses to enable it.
 <br/>
 <br/>
 Tools used to build the data quality checker are `Python` & `Django`.
+<br/>
+<br/>
+Upload a CSV file to assess data quality. The system will report the number of null values, specifying the columns and rows where they occur. It will also identify duplicate rows and highlight which entries repeat an original record.
 <br/>
 <br/>
 The main goal is to allow users without database or SQL knowledge to quickly assess the quality of their data. For instance, someone preparing files for ingestion doesn’t need coding experience. This enables professionals who prepare datsets to validate them before they enter the ETL pipeline.
