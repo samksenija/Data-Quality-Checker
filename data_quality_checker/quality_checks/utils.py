@@ -22,7 +22,7 @@ def check_for_null_fields_index_column(df):
     rows, cols = np.where(df_is_null)
 
     for r, c in zip(rows, cols):
-        found_at = {"row": df.index[r] + 1, "column": df.columns[c]}
+        found_at = {"row": df.index[r] + 2, "column": df.columns[c]}
         array_of_null_details_result.append(found_at)
 
     return array_of_null_details_result

@@ -30,17 +30,25 @@ data_types = {
 
 def file_upload(request):
     try:
-        if request.method == "POST" and request.FILES.get('csv_file'): #TODO add Excel file support
+        if request.method == "POST" and request.FILES.get('csv_file'):
+            global df
+            
             csv_file = request.FILES['csv_file']
-
-            data = csv_file.read().decode('utf-8')
-
-            global df 
-            df = pd.read_csv(io.StringIO(data))
+            csv_file_name =  csv_file.name
+    
+            if csv_file_name.endswith('.csv'):
+                data = csv_file.read().decode('utf-8')
+                df = pd.read_csv(io.StringIO(data))
+            elif csv_file_name.endswith('.xlsx'):
+                df = pd.read_excel(csv_file)
+            elif csv_file_name.endswith('.xls'):
+                df = pd.read_excel(csv_file, engine='xlrd')
 
             global duplicate_rows
             duplicate_rows = check_for_duplicate_rows(df)
+            
             columns = duplicate_rows["headers"]
+            columns = [str(item) for item in duplicate_rows["headers"]]
 
             form = ColumnMappingForm(request.POST, columns=columns, data_types=data_types)
 
