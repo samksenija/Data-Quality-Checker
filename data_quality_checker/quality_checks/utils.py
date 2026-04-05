@@ -119,17 +119,25 @@ def generate_pdf(filename, data):
     elements.append(Spacer(1, 15))
     
     elements.append(Paragraph("Null Values Details", styles['Heading2']))
+    if len(data["null_value_details"]) > 0:
+        headers = ['Row Index', 'Column']
+        values = data["null_value_details"]
 
-    # headers = list(data["null_count_per_column"].keys())
-    # values = list(data["null_count_per_column"].values())
+        table_data = [
+            [wrap_cell(h) for h in headers]
+        ]
+        
+        for item in values:
+            table_data.append([
+                wrap_cell(item["row"]),
+                wrap_cell(item["column"])
+            ])
 
-    # table_data = [
-    #     [wrap_cell(h) for h in headers],
-    #     [wrap_cell(v) for v in values],
-    # ]
-
-    # elements.append(create_table(table_data, len(headers)))
-    # elements.append(Spacer(1, 15)
+        elements.append(create_table(table_data, len(headers)))
+        elements.append(Spacer(1, 15))
+    else:
+        elements.append(Paragraph("No null values found.", styles['Normal']))
+        elements.append(Spacer(1, 15))
     
     elements.append(Paragraph("Duplicate Rows", styles['Heading2']))
     if data['duplicate_rows']['duplicate_count'] > 0:
