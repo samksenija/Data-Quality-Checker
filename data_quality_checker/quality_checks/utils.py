@@ -23,15 +23,16 @@ def check_for_null_fields_count(df):
 
 def check_for_null_fields_index_column(df):
     df_is_null = df.isnull()
-    array_of_textual_result = []
+    array_of_null_details_result = []
+    found_at = {}
 
     rows, cols = np.where(df_is_null)
 
     for r, c in zip(rows, cols):
-        found_at = f"Null found at row index: {df.index[r] + 1}, column: {df.columns[c]}"
-        array_of_textual_result.append(found_at)
+        found_at = {"row": df.index[r] + 1, "column": df.columns[c]}
+        array_of_null_details_result.append(found_at)
 
-    return array_of_textual_result
+    return array_of_null_details_result
 
 def check_for_duplicate_rows(df):
     duplicate_rows = df[df.duplicated()]

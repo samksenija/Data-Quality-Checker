@@ -4,15 +4,51 @@
 {% block title %}Null Value Details{% endblock %}
 
 {% block body %}
+<style>
+    h1, h2, h5 {
+        margin: 0.5em 0;
+        color: #1a1a1a;
+    }
+    h1 { font-size: 18pt; }
+    h2 { font-size: 16pt; }
+    h5 { font-size: 14pt; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1.5em;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+</style>
 
 <div class="container">
     <h2 class="mb-4">Null Value Details</h2>
-    <div>
-        {% for value in null_value_details %}
-            <p>{{ value }}</p>
-        {% endfor %}
+    <div class="section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Row Index</th>
+                    <th>Column</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in null_value_details %}
+                <tr>
+                    <td>{{ item.row }}</td>
+                    <td>{{ item.column }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-  
+
 </div>
 
 {% endblock %}
