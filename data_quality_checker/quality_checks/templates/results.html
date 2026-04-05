@@ -50,48 +50,56 @@
     </div>
 </div>
 
-<div class="section fixed-content">
+<div class="section">
     <h2>Null Values per Column</h2>
-    <table>
-        <thead>
-            <tr>
-                {% for key, value in null_count_per_column.items %}
-                    <th>{{ key }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                {% for key, value in null_count_per_column.items %}
-                    <td>{{ value }}</td>
-                {% endfor %}
-            </tr>
-        </tbody>
-    </table>
+    <div class="fixed-content">
+        <table>
+            <thead>
+                <tr>
+                    {% for key, value in null_count_per_column.items %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for key, value in null_count_per_column.items %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <p><a class="link" href="{% url 'null_value_details' %}">View Null Value Details</a></p>
 </div>
 
-<div class="section fixed-content">
+<div class="section">
     <h2>Duplicate Rows</h2>
     <p><strong>Total duplicates:</strong> {{ duplicate_rows.duplicate_count }}</p>
-    <table>
-        <thead>
-            <tr>
-                {% for header in duplicate_rows.headers %}
-                    <th>{{ header }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in duplicate_rows.duplicate_rows %}
-                <tr>
-                    {% for cell in row %}
-                        <td>{{ cell }}</td>
+    {% if duplicate_rows.duplicate_count > 0 %}
+        <div class="fixed-content">
+            <table>
+                <thead>
+                    <tr>
+                        {% for header in duplicate_rows.headers %}
+                            <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in duplicate_rows.duplicate_rows %}
+                        <tr>
+                            {% for cell in row %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
                     {% endfor %}
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No duplicate rows found.</p>
+    {% endif %}
 </div>
 
 {% if show_schema_results %}
