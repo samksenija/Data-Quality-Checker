@@ -70,7 +70,9 @@
             </tbody>
         </table>
     </div>
-    <p><a class="link" href="{% url 'null_value_details' %}">View Null Value Details</a></p>
+    {% if total_nulls > 0 %}
+        <p><a class="link" href="{% url 'null_value_details' %}">View Null Value Details</a></p>
+    {% endif %}
 </div>
 
 <div class="section">

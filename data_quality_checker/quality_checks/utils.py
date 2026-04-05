@@ -11,8 +11,9 @@ def check_for_null_fields_count(df):
     df_is_null = df.isnull()
 
     null_counts = df_is_null.sum()
+    total_nulls = null_counts.sum()
 
-    return null_counts.to_dict()
+    return [null_counts.to_dict(), total_nulls]
 
 def check_for_null_fields_index_column(df):
     df_is_null = df.isnull()
@@ -184,8 +185,9 @@ def generate_pdf(file_path, data):
 
     doc.build(elements)
     
-def results_context(null_count_per_column, duplicate_rows, show_schema_results, schema_result):
+def results_context(null_count_per_column, duplicate_rows, show_schema_results, schema_result, total_nulls):
     return {"null_count_per_column": null_count_per_column,
             "duplicate_rows": duplicate_rows,
             "show_schema_results": show_schema_results,
-            "schema_check_datatypes": schema_result}
+            "schema_check_datatypes": schema_result,
+            "total_nulls": total_nulls}

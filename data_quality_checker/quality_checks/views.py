@@ -68,11 +68,12 @@ def file_upload(request):
 def results(request):
     try:
         show_schema_results = False
-        null_count_per_column = check_for_null_fields_count(df)
+        null_count_per_column = check_for_null_fields_count(df)[0]
+        total_nulls = check_for_null_fields_count(df)[1]
         schema_result = []
         
         global result_of_validation
-        result_of_validation = results_context(null_count_per_column, duplicate_rows, show_schema_results, schema_result)
+        result_of_validation = results_context(null_count_per_column, duplicate_rows, show_schema_results, schema_result, total_nulls)
         
         if request.method == "POST":
             form = ColumnMappingForm(request.POST, columns=duplicate_rows["headers"], data_types=data_types)
@@ -81,7 +82,7 @@ def results(request):
                 show_schema_results = True
                 schema_result = schema_check_datatypes(df, form.cleaned_data.items())
 
-                result_of_validation = results_context(null_count_per_column, duplicate_rows, show_schema_results, schema_result)
+                result_of_validation = results_context(null_count_per_column, duplicate_rows, show_schema_results, schema_result, total_nulls)
                 
         return render(request, "results.html", result_of_validation)              
     except:
