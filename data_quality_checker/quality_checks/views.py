@@ -89,6 +89,9 @@ def null_value_details(request):
 
 def download_pdf(request):
     try:
+        null_value_details = check_for_null_fields_index_column(df)
+        result_of_validation['null_value_details'] = null_value_details
+        
         filename = 'validation-result-' + datetime.today().strftime("%Y-%m-%d") + '-' + datetime.now().strftime("%H-%M-%S") + '.pdf'
     
         buffer = io.BytesIO()
