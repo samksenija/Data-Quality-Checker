@@ -3,6 +3,10 @@
 {% block body %}    
     <div class="push-div-down">
         <h2>Upload File</h2>
+        <h5>Select a CSV, XLSX, or XLS file to upload</h5>
+        <h6>Please ensure that the first row of the file contains the column names, 
+            and the subsequent rows contain the relevant data to be evaluated.
+        </h6>
         <form method="post" enctype="multipart/form-data" class="create-space-45">
             {% csrf_token %}
             <div class="mb-3">
