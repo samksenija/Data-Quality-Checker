@@ -117,27 +117,44 @@ def generate_pdf(filename, data):
 
     elements.append(create_table(table_data, len(headers)))
     elements.append(Spacer(1, 15))
+    
+    elements.append(Paragraph("Null Values Details", styles['Heading2']))
 
+    # headers = list(data["null_count_per_column"].keys())
+    # values = list(data["null_count_per_column"].values())
+
+    # table_data = [
+    #     [wrap_cell(h) for h in headers],
+    #     [wrap_cell(v) for v in values],
+    # ]
+
+    # elements.append(create_table(table_data, len(headers)))
+    # elements.append(Spacer(1, 15)
+    
     elements.append(Paragraph("Duplicate Rows", styles['Heading2']))
-    elements.append(
-        Paragraph(
-            f"Total duplicates: {data['duplicate_rows']['duplicate_count']}",
-            styles['Normal']
+    if data['duplicate_rows']['duplicate_count'] > 0:
+        elements.append(
+            Paragraph(
+                f"Total duplicates: {data['duplicate_rows']['duplicate_count']}",
+                styles['Normal']
+            )
         )
-    )
-    elements.append(Spacer(1, 10))
+        elements.append(Spacer(1, 10))
 
-    dup_headers = data['duplicate_rows']['headers']
-    dup_rows = data['duplicate_rows']['duplicate_rows']
+        dup_headers = data['duplicate_rows']['headers']
+        dup_rows = data['duplicate_rows']['duplicate_rows']
 
-    table_data = [
-        [wrap_cell(h) for h in dup_headers]
-    ] + [
-        [wrap_cell(cell) for cell in row] for row in dup_rows
-    ]
+        table_data = [
+            [wrap_cell(h) for h in dup_headers]
+        ] + [
+            [wrap_cell(cell) for cell in row] for row in dup_rows
+        ]
 
-    elements.append(create_table(table_data, len(dup_headers)))
-    elements.append(Spacer(1, 15))
+        elements.append(create_table(table_data, len(dup_headers)))
+        elements.append(Spacer(1, 15))
+    else:
+        elements.append(Paragraph("No duplicate rows found.", styles['Normal']))
+        elements.append(Spacer(1, 15))
 
     if data.get("show_schema_results"):
         elements.append(Paragraph("Schema Validation", styles['Heading2']))
