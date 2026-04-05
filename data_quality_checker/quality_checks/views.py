@@ -70,8 +70,8 @@ def results(request):
         show_schema_results = False
         null_count_per_column = check_for_null_fields_count(df)
         schema_result = []
-        global result_of_validation
         
+        global result_of_validation
         result_of_validation = results_context(null_count_per_column, duplicate_rows, show_schema_results, schema_result)
         
         if request.method == "POST":
@@ -102,11 +102,10 @@ def download_pdf(request):
         null_value_details = check_for_null_fields_index_column(df)
         result_of_validation['null_value_details'] = null_value_details
         
-        filename = 'validation-result-' + datetime.today().strftime("%Y-%m-%d") + '-' + datetime.now().strftime("%H-%M-%S") + '.pdf'
-
         validation_reports_path = settings.BASE_DIR / "validation_reports"
         validation_reports_path.mkdir(parents=True, exist_ok=True)
         
+        filename = 'validation-result-' + datetime.today().strftime("%Y-%m-%d") + '-' + datetime.now().strftime("%H-%M-%S") + '.pdf'
         file_path = str(validation_reports_path / filename)
         
         buffer = io.BytesIO()
