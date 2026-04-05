@@ -3,3 +3,4 @@ data_quality_checker/db.sqlite3
 data_quality_checker/quality_checks/__pycache__/
 data_quality_checker/quality_checks/migrations/__pycache__/
 data_quality_checker/.env
+data_quality_checker/validation_reports/

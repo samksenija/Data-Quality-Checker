@@ -1,6 +1,8 @@
 import io
+import os
 import pandas as pd
 
+from django.conf import settings
 from .forms import ColumnMappingForm
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -101,15 +103,20 @@ def download_pdf(request):
         result_of_validation['null_value_details'] = null_value_details
         
         filename = 'validation-result-' + datetime.today().strftime("%Y-%m-%d") + '-' + datetime.now().strftime("%H-%M-%S") + '.pdf'
-    
+
+        validation_reports_path = settings.BASE_DIR / "validation_reports"
+        validation_reports_path.mkdir(parents=True, exist_ok=True)
+        
+        file_path = str(validation_reports_path / filename)
+        
         buffer = io.BytesIO()
 
-        generate_pdf(filename, result_of_validation)
+        generate_pdf(file_path, result_of_validation)
 
         pdf = buffer.getvalue()
         buffer.close()
 
-        pdf = open(filename, 'rb')
+        pdf = open(file_path, 'rb')
         response = HttpResponse(pdf.read())
         response['Content-Disposition'] = f'attachment; filename="{filename}"'
 

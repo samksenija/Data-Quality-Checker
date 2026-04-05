@@ -65,9 +65,9 @@ def schema_check_datatypes(df, column_mappings):
   
     return datatype_conversion_results
 
-def generate_pdf(filename, data):
+def generate_pdf(file_path, data):    
     doc = SimpleDocTemplate(
-        filename,
+        file_path,
         pagesize=A4,
         leftMargin=20 * mm,
         rightMargin=20 * mm,
