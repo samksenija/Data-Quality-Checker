@@ -18,3 +18,6 @@ In some cases, null values and duplicate rows are not actual issues but reflect 
 <br/>
 <br/>
 Ensuring high-quality data at the source supports smooth processing and transformation throughout the pipeline, in cases when data is prepared outside the data engineering team. When data is flawed or not properly prepared at the source, it can lead to confusion and issues further downstream.
+<br/>
+### Libraries
+`pip install xlrd`
