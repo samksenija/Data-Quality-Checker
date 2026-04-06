@@ -44,5 +44,4 @@ User can download PDF of validation results, which will include all views from a
 1. Upload file
 2. Perform schema validation - Can be skipped
 3. Results with PDF download option
-<br/>
-3.1 Null value detail page
+4. Null value detail page
