@@ -1,4 +1,4 @@
-# Data Quality Checker
+# Data Quality Checker 2.0
 This is a data quality checker that identifies null values, detects duplicates, and can perform schema validation if the user chooses to enable it.
 <br/>
 <br/>
@@ -45,3 +45,12 @@ User can download PDF of validation results, which will include all views from a
 2. Perform schema validation - Can be skipped
 3. Results with PDF download option
 4. Null value detail page
+<br/>
+
+## 2.0 version
+This version seeks further improvements:
+1. Adding superuser
+2. Login, register & logout of user
+3. Adding tables & migrations (SQLite) for archive of PDF generations
+4. Testing out email/Slack integration
+5. Mobile responsivity
