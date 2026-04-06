@@ -21,3 +21,23 @@ Ensuring high-quality data at the source supports smooth processing and transfor
 <br/>
 ### Libraries
 `pip install xlrd`
+<br/>
+### Project Description
+The program supports uploading CSV, XLS, and XLSX files. 
+<br/>
+For program to process input, these files should have their column names in the first row, which is often typical for these formats, and all subsequent rows should contain data.
+<br/>
+After upload, user is asked to perform schema validation, which can be skipped, if such action is not needed.
+<br/>
+For schema validation, the column names are automatically extracted from the uploaded file, and the user is prompted to select the expected data type column. Choosing data type is not required, allowing users to validate specific columns without needing to define data types for all of them.
+<br/>
+After this step, the user is redirected to a page where the results are displayed. These include the number of null values per column, along with a separate page that shows detailed information about null entries—such as their index and corresponding column. The results also highlight any duplicate rows and provide the outcome of the schema validation.
+<br/>
+User can download PDF of validation results, which will include all views from above.
+<br/>
+### Overview
+1. Upload file
+2. Perform schema validation - Can be skipped
+3. Results with PDF download option
+<br/>
+3.1 Null value detail page
