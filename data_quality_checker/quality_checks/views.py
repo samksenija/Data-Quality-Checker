@@ -13,6 +13,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import User
 from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
 
 from .utils import check_for_null_fields_count, check_for_null_fields_index_column, check_for_duplicate_rows, schema_check_datatypes, generate_pdf, results_context 
 
@@ -91,6 +92,7 @@ def register(request):
     else:
         return render(request, "register.html")
 
+@login_required
 def file_upload(request):
     try:
         if request.method == "POST" and request.FILES.get('csv_file'):
@@ -125,7 +127,7 @@ def file_upload(request):
 
     return render(request, "file_upload.html", {})
 
-
+@login_required
 def results(request):
     try:
         show_schema_results = False
@@ -149,7 +151,7 @@ def results(request):
     except:
         return render(request, "error_page.html", {})
 
-
+@login_required
 def null_value_details(request):
     try:
         null_value_details = check_for_null_fields_index_column(df)
@@ -158,7 +160,7 @@ def null_value_details(request):
     except:
         return render(request, "error_page.html", {})
     
-
+@login_required
 def download_pdf(request):
     try:
         null_value_details = check_for_null_fields_index_column(df)
