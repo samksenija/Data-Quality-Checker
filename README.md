@@ -54,3 +54,19 @@ This version seeks further improvements:
 3. Adding tables & migrations (SQLite) for archive of PDF generations
 4. Testing out email/Slack integration
 5. Mobile responsivity
+
+## Upgraded version 
+In upgraded version of data quality checker, login, registration & logout of user were added, with corresponding `User` model. Main reason for adding this logic was to enable user archive of processed files. This way, a 'library' of processed files result, that is resulting PDFs are available to user, with a deletion option (to be added).
+<br/>
+<br/>
+Model which supports archive is `File_Data` with following configuration:
+```
+    user = models.ForeignKey(User, on_delete = models.CASCADE, related_name = 'user_id')
+    file_id = models.AutoField(primary_key=True)
+    row_number= models.IntegerField(null = True)
+    original_file_name = models.CharField(max_length=50)
+    file_path = models.CharField(max_length=200)
+    status = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default=UPLOADED)
+    uploaded_at = models.DateTimeField(auto_now_add = True, null = True)
+```
+<br/>
