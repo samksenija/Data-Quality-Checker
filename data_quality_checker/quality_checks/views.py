@@ -11,16 +11,17 @@ from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .models import User
+from .models import User, File_Data
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
-from .utils import check_for_null_fields_count, check_for_null_fields_index_column, check_for_duplicate_rows, schema_check_datatypes, generate_pdf, results_context 
+from .utils import check_for_null_fields_count, check_for_null_fields_index_column, check_for_duplicate_rows, schema_check_datatypes, generate_pdf, results_context, save_file_data_to_db 
 
 
 df = None
 duplicate_rows = None
 result_of_validation = None
+csv_file_name = None
 
 global data_types
 data_types = {
@@ -98,6 +99,7 @@ def file_upload(request):
         if request.method == "POST" and request.FILES.get('csv_file'):
             global df
             
+            global csv_file_name
             csv_file = request.FILES['csv_file']
             csv_file_name =  csv_file.name
     
@@ -182,7 +184,9 @@ def download_pdf(request):
         pdf = open(file_path, 'rb')
         response = HttpResponse(pdf.read())
         response['Content-Disposition'] = f'attachment; filename="{filename}"'
-
+        
+        save_file_data_to_db(request.user, csv_file_name, file_path, df.shape[0])
+        
         return response
     except:
         return render(request, "error_page.html", {})

@@ -6,6 +6,10 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, 
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import mm
 
+from .models import File_Data
+
+from django.http import HttpResponseServerError
+
 
 def check_for_null_fields_count(df):
     df_is_null = df.isnull()
@@ -191,3 +195,16 @@ def results_context(null_count_per_column, duplicate_rows, show_schema_results, 
             "show_schema_results": show_schema_results,
             "schema_check_datatypes": schema_result,
             "total_nulls": total_nulls}
+    
+def save_file_data_to_db(user, original_file_name, file_path, row_number):
+    try:
+        file_data = File_Data()
+    
+        file_data.user = user
+        file_data.original_file_name = original_file_name
+        file_data.file_path = file_path
+        file_data.row_number = row_number
+
+        file_data.save()
+    except:
+        raise HttpResponseServerError('Could not save file data to database. Please contact support at ksenijasamardzic4@gmail.com')
