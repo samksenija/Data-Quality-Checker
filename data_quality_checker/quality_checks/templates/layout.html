@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Data Quality Checker - Beta</a>
+            <a class="navbar-brand">Data Quality Checker - Beta</a>
 
             {% if request.user.is_authenticated %}
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -24,6 +24,12 @@
                             Logged in as:
                             <strong class="text-white">{{ request.user.username }}</strong>
                         </span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'file_upload' %}" class="btn btn-outline-light btn-sm">
+                            File Upload
+                        </a>
                     </li>
 
                     <li class="nav-item">
