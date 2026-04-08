@@ -196,12 +196,13 @@ def results_context(null_count_per_column, duplicate_rows, show_schema_results, 
             "schema_check_datatypes": schema_result,
             "total_nulls": total_nulls}
     
-def save_file_data_to_db(user, original_file_name, file_path, row_number):
+def save_file_data_to_db(user, original_file_name, file_name, file_path, row_number):
     try:
         file_data = File_Data()
     
         file_data.user = user
         file_data.original_file_name = original_file_name
+        file_data.file_name = file_name
         file_data.file_path = file_path
         file_data.row_number = row_number
 

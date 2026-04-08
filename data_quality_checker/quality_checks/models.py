@@ -16,6 +16,7 @@ class File_Data(models.Model):
     file_id = models.AutoField(primary_key=True)
     row_number= models.IntegerField(null = True)
     original_file_name = models.CharField(max_length=50)
+    file_name = models.CharField(max_length=50, null=True)
     file_path = models.CharField(max_length=200)
     status = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default=UPLOADED)
     uploaded_at = models.DateTimeField(auto_now_add = True, null = True)

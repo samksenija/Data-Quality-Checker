@@ -185,7 +185,7 @@ def download_pdf(request):
         response = HttpResponse(pdf.read())
         response['Content-Disposition'] = f'attachment; filename="{filename}"'
         
-        save_file_data_to_db(request.user, csv_file_name, file_path, df.shape[0])
+        save_file_data_to_db(request.user, csv_file_name, filename, file_path, df.shape[0])
         
         return response
     except:
