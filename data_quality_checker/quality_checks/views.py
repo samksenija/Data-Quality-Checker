@@ -190,3 +190,10 @@ def download_pdf(request):
         return response
     except:
         return render(request, "error_page.html", {})
+    
+@login_required
+def archive(request):
+    try:
+        return render(request, "archive.html", {})
+    except:
+        return render(request, "error_page.html", {})

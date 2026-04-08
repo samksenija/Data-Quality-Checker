@@ -17,12 +17,19 @@
 
             {% if request.user.is_authenticated %}
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-lg-center">
-  
-                    <li class="nav-item me-3">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+
+                    <li class="nav-item">
                         <span class="navbar-text">
-                            Logged in as: <strong style="color: white;"> {{ request.user.username }} &nbsp;</strong>
+                            Logged in as:
+                            <strong class="text-white">{{ request.user.username }}</strong>
                         </span>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'archive' %}" class="btn btn-outline-light btn-sm">
+                            Archive
+                        </a>
                     </li>
 
                     <li class="nav-item">
@@ -30,6 +37,7 @@
                             Logout
                         </a>
                     </li>
+
                 </ul>
             </div>
             {% endif %}
