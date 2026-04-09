@@ -62,4 +62,8 @@
         <p class="mb-0">© {% now "Y" %} Data Quality Checker</p>
     </footer>
 </body>
+
+{% block script %}
+    <script src="{% static 'quality_checks/index.js' %}"></script>
+{% endblock %}
 </html>
