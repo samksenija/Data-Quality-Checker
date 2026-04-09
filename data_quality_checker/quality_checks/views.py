@@ -194,6 +194,8 @@ def download_pdf(request):
 @login_required
 def archive(request):
     try:
-        return render(request, "archive.html", {})
+        archive_data = File_Data.objects.all().order_by('-uploaded_at')
+
+        return render(request, "archive.html", {"archive_data": archive_data})
     except:
         return render(request, "error_page.html", {})

@@ -5,6 +5,8 @@
 
 {% block body %}
 <div class="container">
-    
+    {% for item in archive_data %}
+        {{ item }}
+    {% endfor %}
 </div>
 {% endblock %}
