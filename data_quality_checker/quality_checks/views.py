@@ -4,7 +4,7 @@ import pandas as pd
 
 from django.conf import settings
 from .forms import ColumnMappingForm
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from datetime import datetime
  
@@ -203,14 +203,10 @@ def archive(request):
 @login_required
 def delete_archive_element(request, id):
     try:
-        file_data = File_Data.objects.get(id=id)
-        file_path = file_data.file_path
-        
-        if os.path.exists(file_path):
-            os.remove(file_path)
-        
-        file_data.delete()
-        
+        file_data = get_object_or_404(File_Data, file_id=id)        
+        file_data.status = File_Data.DELETED
+        file_data.save()
+
         return HttpResponseRedirect(reverse("archive"))
     except:
         return render(request, "error_page.html", {})
