@@ -7,10 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 });
 
-function delete_archive_element(){
-        alert("Delete PDF"); //TODO
-}
-
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -25,4 +21,8 @@ function getCookie(name) {
         }
     }
     return cookieValue;
+}
+
+function delete_archive_element(id) {
+    
 }

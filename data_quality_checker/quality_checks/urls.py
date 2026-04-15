@@ -10,5 +10,6 @@ urlpatterns = [
     path("null-value-details", views.null_value_details, name="null_value_details"),
     path("results", views.results, name="results"),
     path("download_pdf", views.download_pdf, name="download_pdf"),
-    path("archive", views.archive, name="archive")
+    path("archive", views.archive, name="archive"),
+    path("delete_archive_element/<int:id>", views.delete_archive_element, name="delete_archive_element")
 ]

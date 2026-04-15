@@ -199,3 +199,18 @@ def archive(request):
         return render(request, "archive.html", {"archive_data": archive_data})
     except:
         return render(request, "error_page.html", {})
+    
+@login_required
+def delete_archive_element(request, id):
+    try:
+        file_data = File_Data.objects.get(id=id)
+        file_path = file_data.file_path
+        
+        if os.path.exists(file_path):
+            os.remove(file_path)
+        
+        file_data.delete()
+        
+        return HttpResponseRedirect(reverse("archive"))
+    except:
+        return render(request, "error_page.html", {})
