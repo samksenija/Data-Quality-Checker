@@ -24,5 +24,21 @@ function getCookie(name) {
 }
 
 function delete_archive_element(id) {
-    
+    var editArchiveButton = document.getElementById('archive_element_' + id);
+
+    const csrftoken = getCookie('csrftoken');
+    const headers = {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken
+    };
+
+    fetch('/delete_archive_element/'+ id, {
+        method: 'DELETE',
+        headers: headers,
+        body: JSON.stringify({
+            id: id,
+        })
+    });
+
+    editArchiveButton.style.display = 'disabled';
 }
