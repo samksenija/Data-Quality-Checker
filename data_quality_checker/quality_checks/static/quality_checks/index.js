@@ -31,7 +31,7 @@ function delete_archive_element(id) {
     };
 
     fetch('/delete_archive_element/'+ id, {
-        method: 'DELETE',
+        method: 'PUT',
         headers: headers,
         body: JSON.stringify({
             id: id
