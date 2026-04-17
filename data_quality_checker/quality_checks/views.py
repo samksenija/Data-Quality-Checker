@@ -203,9 +203,11 @@ def archive(request):
 @login_required
 def delete_archive_element(request, id):
     try:
-        file_data = get_object_or_404(File_Data, file_id=id)        
-        file_data.status = File_Data.DELETED
-        file_data.save()
+        file_data = get_object_or_404(File_Data, file_id=id)
+        file_data.delete()
+        
+        if os.path.exists(file_data.file_path):
+            os.remove(file_data.file_path)
 
         return HttpResponseRedirect(reverse("archive"))
     except:
