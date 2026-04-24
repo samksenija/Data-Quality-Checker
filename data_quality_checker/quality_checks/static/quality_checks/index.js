@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'Content-Type': 'application/json',
         'X-CSRFToken': csrftoken
     };
+
+    check_if_archive_data();
 });
 
 function getCookie(name) {
@@ -23,16 +25,18 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function delete_archive_element(id) {
-    const csrftoken = getCookie('csrftoken');
-    const headers = {
+function get_headers(){
+    let csrftoken = getCookie('csrftoken');
+    return headers = {
         'Content-Type': 'application/json',
         'X-CSRFToken': csrftoken
     };
+}
 
+function delete_archive_element(id) {
     fetch('/delete_archive_element/'+ id, {
         method: 'POST',
-        headers: headers,
+        headers: get_headers(),
         body: JSON.stringify({
             id: id
         })
@@ -43,5 +47,20 @@ function delete_archive_element(id) {
             window.location.reload();
         }
         alert('Error has occured, please contact ksenijasamardzic4@gmail.com')
+    });
+}
+
+function check_if_archive_data() {
+    fetch('/check_if_archive_data', {
+        method: 'GET',
+        headers: get_headers()
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res.has_data) {
+            document.getElementById('archive_data').style.display = 'block';
+        } else {
+            document.getElementById('archive_data').style.display = 'none';
+        }
     });
 }

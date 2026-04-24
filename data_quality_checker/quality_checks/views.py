@@ -201,6 +201,18 @@ def archive(request):
         return render(request, "error_page.html", {})
     
 @login_required
+def check_if_archive_data(request):
+    try:
+        archive_data = File_Data.objects.all().count()
+
+        if archive_data > 0:
+            return JsonResponse({"has_data": True})
+        
+        return JsonResponse({"has_data": False})
+    except:
+        return render(request, "error_page.html", {})
+    
+@login_required
 def delete_archive_element(request, id):
     try:
         file_data = get_object_or_404(File_Data, pk=id)
@@ -211,4 +223,4 @@ def delete_archive_element(request, id):
             
         return JsonResponse({"success": True})
     except:
-        return JsonResponse({"success": False})
+        return render(request, "error_page.html", {})
