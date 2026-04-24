@@ -31,10 +31,17 @@ function delete_archive_element(id) {
     };
 
     fetch('/delete_archive_element/'+ id, {
-        method: 'PUT',
+        method: 'POST',
         headers: headers,
         body: JSON.stringify({
             id: id
         })
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res.success) {
+            window.location.reload();
+        }
+        alert('Error has occured, please contact ksenijasamardzic4@gmail.com')
     });
 }

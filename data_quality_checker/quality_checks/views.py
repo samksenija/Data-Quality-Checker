@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from datetime import datetime
  
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
 from .models import User, File_Data
 from django.db import IntegrityError
@@ -208,7 +208,7 @@ def delete_archive_element(request, id):
         
         if os.path.exists(file_data.file_path):
             os.remove(file_data.file_path)
-
-        return HttpResponseRedirect(reverse("archive"))
+            
+        return JsonResponse({"success": True})
     except:
-        return render(request, "error_page.html", {})
+        return JsonResponse({"success": False})
