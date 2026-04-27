@@ -1,6 +1,7 @@
 import io
 import os
 import pandas as pd
+import webbrowser
 
 from django.conf import settings
 from .forms import ColumnMappingForm
@@ -188,6 +189,16 @@ def download_pdf(request):
         save_file_data_to_db(request.user, csv_file_name, filename, file_path, df.shape[0])
         
         return response
+    except:
+        return render(request, "error_page.html", {})
+    
+@login_required
+def download_pdf_from_archive(request, id):
+    try:
+        file_path = File_Data.objects.filter(pk=id).values('file_path')[0]['file_path']
+        webbrowser.open_new_tab(file_path)
+
+        return JsonResponse({"message": 'Success'})
     except:
         return render(request, "error_page.html", {})
     

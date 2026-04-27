@@ -75,9 +75,7 @@
                                 </i>
                             </td>
                             <td>
-                                <a href="" class="link">
-                                    <i class="fa-solid fa-file-pdf"></i>
-                                </a>
+                                <i class="fa-solid fa-file-pdf link" onclick="download_pdf_from_archive('{{ result.file_id }}')" type="button"></i>
                             </td>
                         </tr>
                     {% endfor %}

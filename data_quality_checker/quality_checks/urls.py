@@ -12,5 +12,6 @@ urlpatterns = [
     path("download_pdf", views.download_pdf, name="download_pdf"),
     path("archive", views.archive, name="archive"),
     path("delete_archive_element/<int:id>", views.delete_archive_element, name="delete_archive_element"),
-    path("check_if_archive_data", views.check_if_archive_data, name="check_if_archive_data")
+    path("check_if_archive_data", views.check_if_archive_data, name="check_if_archive_data"),
+    path("download_pdf_from_archive/<int:id>", views.download_pdf_from_archive, name="download_pdf_from_archive")
 ]

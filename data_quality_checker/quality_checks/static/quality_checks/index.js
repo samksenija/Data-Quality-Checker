@@ -64,3 +64,19 @@ function check_if_archive_data() {
         }
     });
 }
+
+function download_pdf_from_archive(id) {
+    fetch('/download_pdf_from_archive/' + id, {
+        method: 'POST',
+        headers: get_headers(),
+        body: JSON.stringify({
+            id: id
+        })
+    })
+    .then(res => res.json())
+    .then(res => {
+        if (res.message == 'Success') {
+            alert('Success! File will open in default preview!')
+        }
+    });
+}
