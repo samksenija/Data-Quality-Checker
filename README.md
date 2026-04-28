@@ -22,6 +22,8 @@ Ensuring high-quality data at the source supports smooth processing and transfor
 ### Libraries
 `pip install xlrd`
 <br/>
+`pip install reportlab`
+<br/>
 ### Project Description
 The program supports uploading CSV, XLS, and XLSX files. 
 <br/>
