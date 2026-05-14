@@ -54,11 +54,10 @@ This version seeks further improvements:
 1. Adding superuser
 2. Login, register & logout of user
 3. Adding tables & migrations (SQLite) for archive of PDF generations
-4. Testing out email/Slack integration
-5. Mobile responsivity
+4. Allowing users to access generated PDFs trough archive module
 
 ## Upgraded version 
-In upgraded version of data quality checker, login, registration & logout of user were added, with corresponding `User` model. Main reason for adding this logic was to enable user archive of processed files. This way, a 'library' of processed files result, that is resulting PDFs are available to user, with a deletion option (to be added).
+In upgraded version of data quality checker, login, registration & logout of user were added, with corresponding `User` model. Main reason for adding this logic was to enable user archive of processed files. This way, a 'library' of processed files result, that is resulting PDFs are available to user, with a deletion option.
 <br/>
 <br/>
 Model which supports archive is `File_Data` with following configuration:
